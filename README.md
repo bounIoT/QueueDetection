@@ -1,3 +1,4 @@
+![](https://github.com/bounIoT/QueueDetection/blob/master/Pictures/one-page-description.png)
 ## Understanding Problem
 - Students regularly use Dining Hall and they are usually short on time.
 - Students should attend the lectures on time, but there is usually long waiting queues at Dining Hall.

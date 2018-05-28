@@ -3,10 +3,9 @@
 var express = require('express');
 var request = require('request');
 
-// Store our app's ID and Secret. These we got from Step 1. // Store our app's ID and Secret. These we got 
-// For this tutorial, we'll keep your API credentials right here. But for an actual app, you'll want to  store them securely in environment variables. 
-var clientId = '166232458678.361737680801';
-var clientSecret = '01a1b7047bdc3bcbb4160beadbbdf5ad';
+
+var clientId = 'secret';
+var clientSecret = 'secret';
 
 // Instantiates Express and assigns our app variable to it
 var app = express();
@@ -19,7 +18,6 @@ var val;
 
 // Lets start our server
 app.listen(PORT, function () {
-    //Callback triggered when server is successful11111a2222b3333c44444ely listening. Hurray!
     console.log("Example app listening on port " + PORT);
 });
 
@@ -59,13 +57,12 @@ app.get('/oauth', function(req, res) {
 // Route the endpoint that our slash command will point to and send back a simple response to indicate that ngrok is working
 app.post('/command/:id', function(req, res) {
     val = req.params.id;
-    console.log('get val', val);
     res.send(val + ' yolladiniz');
 });
 
 // Route the endpoint that our slash command will point to and send back a simple response to indicate that ngrok is working
 app.post('/getval', function(req, res) {
-    res.send('hello!'+ val);
+    res.send('Value: '+ val);
 });
 
 app.post('/command', function(req, res) {

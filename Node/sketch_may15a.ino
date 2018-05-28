@@ -1,16 +1,17 @@
-// defines pins numbers
+
 #define ag_ismi "CMPE_IOT"
 #define ag_sifresi "cmpeiot123"
+//IP of aws server to be connected
 #define IP "13.59.189.137"
 
+//define distance which will be used to estimate if a spot is full or empty
 const int dist = 100;
+//define pins to be connected to arduino
 const int trigPin1 = 12;
 const int echoPin1 = 11;
 const int trigPin2 = 4;
 const int echoPin2 = 3;
 
-const int pir1= 6;
-const int pir2 = 7;
 int val = 0 ;
 
 // defines variables
@@ -26,7 +27,7 @@ pinMode(pir1, INPUT);     // declare sensor as input
 pinMode(pir2, INPUT);     // declare sensor as input
 
 Serial.begin(115200);
-
+//using AT protocol to send and receive data
   Serial.println("AT");
 
   delay(3000);
@@ -41,24 +42,30 @@ Serial.begin(115200);
   }
 }
 void loop() {
-  
+  	//these counters are used to reduce error
+	//10 measurements are made from ultrasonic sensor
+	//if at least 4 of them show that the spot is full
+	//doluluk value changes
    int counter1 = 0 ;
    int counter2 = 0 ;
+	
   for(int i=0 ; i<10 ; i++){
-   
+   	//someoneUnder1 gets value from the sensor that is in front of line
     if(someoneUnder1()<dist)
     counter1++;
-
+	//someoneUnder1 gets value from the sensor that is at the back of the line
     if(someoneUnder2()<dist)
     counter2++;
     delay(1000);
   }
+
+
 if(counter2>4)
-doluluk = 3;
+doluluk = 3; 			//doluluk 3 represents that queue is full
 else if(counter1>4)
-doluluk = 2;
+doluluk = 2;			//doluluk 2 represents that queue is half empty
 else
-doluluk = 1 ;
+doluluk = 1 ;			//doluluk 1 represents that queue is empty
 
 
 delay(2000);
@@ -67,29 +74,6 @@ delay(2000);
   
   delay(6000);
 
-/*
-
- val = digitalRead(pir1);  // read input value
-  if (val == HIGH) {            // check if the input is HIGH
-    Serial.println("Motion1 started!");
-  } else {
-    
-      Serial.println("Motion1 ended!");
-      
-    }
-  delay(1000);
-
-  val = digitalRead(pir2);  // read input value
-  if (val == HIGH) {            // check if the input is HIGH
-    Serial.println("Motion2 started!");
-  } else {
-    
-      Serial.println("Motion2 ended!");
-      
-    }
-  delay(1000);
-
-*/
 }
 
 int someoneUnder1(){
@@ -139,11 +123,7 @@ void doluluk_yolla(int doluluk) {
     return;
   }
 
-  String yollanacakKomut = "GET /update?key=GZAP4V3BETISUW8D&field1=";
   String komut2 = "POST /command/";
-  //yollanacakKomut += (int(doluluk));
-  yollanacakKomut += doluluk;
-  yollanacakKomut += "\r\n\r\n";
   komut2 += doluluk;
   komut2 += "\r\n\r\n";
   
@@ -159,10 +139,8 @@ void doluluk_yolla(int doluluk) {
   
    Serial.print(komut2);
   
- //  Serial.print("\r\n\r\n");
  }
  else {
   Serial.println("AT+CIPCLOSE");
  }
 }
-

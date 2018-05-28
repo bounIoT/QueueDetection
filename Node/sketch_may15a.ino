@@ -22,9 +22,7 @@ void setup() {
 pinMode(trigPin1, OUTPUT); // Sets the trigPin as an Output
 pinMode(echoPin1, INPUT); // Sets the echoPin as an Input
 pinMode(trigPin2, OUTPUT); // Sets the trigPin as an Output
-pinMode(echoPin2, INPUT); // Sets the echoPin as an Input
-pinMode(pir1, INPUT);     // declare sensor as input
-pinMode(pir2, INPUT);     // declare sensor as input
+pinMode(echoPin2, INPUT); // Sets the echoPin as an Inpu
 
 Serial.begin(115200);
 //using AT protocol to send and receive data
